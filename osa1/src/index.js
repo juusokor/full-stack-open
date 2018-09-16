@@ -9,17 +9,11 @@ const Otsikko = (props) => {
     )
 }
 const Sisalto = (props) => {
-    const osa1 = props.osa1
-    const osa2 = props.osa1
-    const osa3 = props.osa3
-    const tehtavia1 = props.tehtavia1
-    const tehtavia2 = props.tehtavia2
-    const tehtavia3 = props.tehtavia3
-    return( 
+     return( 
         <div>
-            <Osa osa={osa1} tehtavia={tehtavia1} />
-            <Osa osa={osa2} tehtavia={tehtavia2} />
-            <Osa osa={osa3} tehtavia={tehtavia3} />
+            <Osa osa={props.osa1} tehtavia={props.tehtavia1} />
+            <Osa osa={props.osa2} tehtavia={props.tehtavia2} />
+            <Osa osa={props.osa3} tehtavia={props.tehtavia3} />
         </div>
     )
 }
