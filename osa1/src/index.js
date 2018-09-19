@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom'
 const Otsikko = (props) => {
     return (
         <div>
-             <h1>{props.kurssi}</h1>
+             <h1>{props.kurssi.nimi}</h1>
         </div>
     )
 }
 const Sisalto = (props) => {  
-    const osaLista = props.osat.map((osa) => {
+    const osaLista = props.kurssi.osat.map((osa) => {
         return <Osa osa={osa.nimi} tehtavia={osa.tehtavia} />;
     }) 
      return( 
@@ -30,7 +30,7 @@ const Osa = (props) => {
 
 const Yhteensa = (props) => {
     let summa = 0
-    props.osat.forEach((osa) => {
+    props.kurssi.osat.forEach((osa) => {
         summa += osa.tehtavia;
     });
     return (
@@ -42,27 +42,29 @@ const Yhteensa = (props) => {
 }
 
 const App = () => {
-    const kurssi = 'Half Stack -sovelluskehitys'
-    const osat = [
-        {
-          nimi: 'Reactin perusteet',
-          tehtavia: 10
-        },
-        {
-          nimi: 'Tiedonvälitys propseilla',
-          tehtavia: 7
-        },
-        {
-          nimi: 'Komponenttien tila',
-          tehtavia: 14
-        }
-      ]
+    const kurssi = {
+        nimi: 'Half Stack -sovelluskehitys',
+        osat: [
+          {
+            nimi: 'Reactin perusteet',
+            tehtavia: 10
+          },
+          {
+            nimi: 'Tiedonvälitys propseilla',
+            tehtavia: 7
+          },
+          {
+            nimi: 'Komponenttien tila',
+            tehtavia: 14
+          }
+        ]
+      }
 
   return (
     <div>
      <Otsikko kurssi={kurssi} />
-     <Sisalto osat={osat} />
-     <Yhteensa osat={osat} />
+     <Sisalto kurssi={kurssi} />
+     <Yhteensa kurssi={kurssi} />
     </div>
   )
 }
