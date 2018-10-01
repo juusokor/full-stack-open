@@ -1,89 +1,42 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Otsikko = (props) => {
-  return (
-    <div>
-      <h1>anna palautetta</h1>
-    </div>
-  )
-}
-
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-)
-
-
-const Statistics = ({ stats }) => {
-  const sum = stats.hyva + stats.neutraali + stats.huono
-  const keskiarvo = (sum === 0) ? "0" : round((stats.hyva - stats.huono) / sum)
-  const positiivisia = (stats.hyva === 0) ? "0 %" : "".concat(round(100 / (sum / stats.hyva)), " %")
-
-  function round(value) {
-    return Number(Math.round(value + 'e' + 1) + 'e-' + 1)
-  }
-
-  if (sum === 0) {
-    return (<div><h1>statistiikka</h1><p>ei yhtään palautetta annettu</p></div>)
-  }
-  return (
-    <div>
-      <h1>statistiikka</h1>
-      <table>
-        <tbody>
-        <Statistic text='hyva' value={stats.hyva}></Statistic>
-        <Statistic text='neutraali' value={stats.neutraali}></Statistic>
-        <Statistic text='huono' value={stats.huono}></Statistic>
-        <Statistic text='keskiarvo' value={keskiarvo}></Statistic>
-        <Statistic text='positiivisia' value={positiivisia}></Statistic>
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-
-const Statistic = ({ text, value }) => {
-  return (
-    <tr><td>{text}</td><td>{value}</td></tr>
-    )
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      hyva: 0,
-      neutraali: 0,
-      huono: 0,
-    }
-
-  }
-
-  lisaaYksi = (prevState, stateKey) => {
-    return () => {
-      this.setState((prevState) => (
-        {
-          [stateKey]: prevState[stateKey] + 1
-        }))
+      selected: 0
     }
   }
 
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+  chooseRandomAnecdote = () => {
+      this.setState({
+        selected : this.getRandomInt(0, anecdotes.length-1)
+      })
+  }
   render() {
-
     return (
       <div>
-        <Otsikko />
-        <Button handleClick={this.lisaaYksi(this.state.hyva, 'hyva')} text="hyvä" />
-        <Button handleClick={this.lisaaYksi(this.state.neutraali, 'neutraali')} text="neutraali" />
-        <Button handleClick={this.lisaaYksi(this.state.huono, 'huono')} text="huono" />
-        <Statistics stats={this.state} />
-
+        {this.props.anecdotes[this.state.selected]}
+        <p><button onClick={this.chooseRandomAnecdote}>next anecdote</button></p>
       </div>
     )
   }
 }
+
+const anecdotes = [
+  'If it hurts, do it more often',
+  'Adding manpower to a late software project makes it later!',
+  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+  'Premature optimization is the root of all evil.',
+  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
+]
+
 ReactDOM.render(
-  <App />,
+  <App anecdotes={anecdotes} />,
   document.getElementById('root')
 )
