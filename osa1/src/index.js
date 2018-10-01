@@ -29,11 +29,15 @@ const Statistics = ({ stats }) => {
   return (
     <div>
       <h1>statistiikka</h1>
-      <Statistic text='hyva' value={stats.hyva}></Statistic>
-      <Statistic text='neutraali' value={stats.neutraali}></Statistic>
-      <Statistic text='huono' value={stats.huono}></Statistic>
-      <Statistic text='keskiarvo' value={keskiarvo}></Statistic>
-      <Statistic text='positiivisia' value={positiivisia}></Statistic>
+      <table>
+        <tbody>
+        <Statistic text='hyva' value={stats.hyva}></Statistic>
+        <Statistic text='neutraali' value={stats.neutraali}></Statistic>
+        <Statistic text='huono' value={stats.huono}></Statistic>
+        <Statistic text='keskiarvo' value={keskiarvo}></Statistic>
+        <Statistic text='positiivisia' value={positiivisia}></Statistic>
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -41,10 +45,8 @@ const Statistics = ({ stats }) => {
 
 const Statistic = ({ text, value }) => {
   return (
-    <div>
-      <p>{text} {value}</p>
-    </div>
-  )
+    <tr><td>{text}</td><td>{value}</td></tr>
+    )
 }
 
 class App extends React.Component {
@@ -58,11 +60,11 @@ class App extends React.Component {
 
   }
 
-  lisaaYksi = (prevState, stateType) => {
+  lisaaYksi = (prevState, stateKey) => {
     return () => {
       this.setState((prevState) => (
         {
-          [stateType]: prevState[stateType] + 1
+          [stateKey]: prevState[stateKey] + 1
         }))
     }
   }
@@ -71,7 +73,6 @@ class App extends React.Component {
 
     return (
       <div>
-
         <Otsikko />
         <Button handleClick={this.lisaaYksi(this.state.hyva, 'hyva')} text="hyvä" />
         <Button handleClick={this.lisaaYksi(this.state.neutraali, 'neutraali')} text="neutraali" />
