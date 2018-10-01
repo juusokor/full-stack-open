@@ -2,73 +2,104 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Otsikko = (props) => {
-    return (
-        <div>
-             <h1>{props.kurssi.nimi}</h1>
-        </div>
-    )
-}
-const Sisalto = (props) => {  
-    const osaLista = props.kurssi.osat.map((osa) => {
-        return <Osa osa={osa.nimi} tehtavia={osa.tehtavia} />;
-    }) 
-     return( 
-        <div>
-           {osaLista}
-        </div>
-    )
-}
+  return (
+      <div>
+           <h1>anna palautetta</h1>
+      </div>
+)
+  }
 
-const Osa = (props) => {
-    return (
-        <div>
-            <p>{props.osa} {props.tehtavia}</p>
-        </div>
-    )
+const Button = ({ handleClick, text}) => (
+  <button onClick={handleClick}>{text}</button>
+)
 
-}
 
-const Yhteensa = (props) => {
-    let summa = 0
-    props.kurssi.osat.forEach((osa) => {
-        summa += osa.tehtavia;
-    });
-    return (
-        <div>
-            <p>yhteensa {summa} tehtävää</p>
-        </div>
-    )
+const Statistics = ({ stats }) => {
+  const sum = stats.hyva + stats.neutraali + stats.huono
+  const keskiarvo = sum / 3
+  const positiivisia = (stats.hyva === 0) ? "0 %" : "".concat(stats.hyva / 3," %")
 
-}
-
-const App = () => {
-    const kurssi = {
-        nimi: 'Half Stack -sovelluskehitys',
-        osat: [
-          {
-            nimi: 'Reactin perusteet',
-            tehtavia: 10
-          },
-          {
-            nimi: 'Tiedonvälitys propseilla',
-            tehtavia: 7
-          },
-          {
-            nimi: 'Komponenttien tila',
-            tehtavia: 14
-          }
-        ]
-      }
+ 
 
   return (
-    <div>
-     <Otsikko kurssi={kurssi} />
-     <Sisalto kurssi={kurssi} />
-     <Yhteensa kurssi={kurssi} />
-    </div>
-  )
+      <div>
+          <h1>statistiikka</h1>
+          <Statistic text='hyva' value={stats.hyva}></Statistic>
+          <Statistic text='neutraali' value={stats.neutraali}></Statistic>
+          <Statistic text='huono' value={stats.huono}></Statistic>
+          <Statistic text='keskiarvo' value={keskiarvo}></Statistic>
+          <Statistic text='positiivisia' value={positiivisia}></Statistic>
+      </div>
+)
 }
 
+const Statistic = ({ text, value }) => {
+  return (
+      <div>
+           <p>{text} {value}</p>
+      </div>
+)
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hyva: 0,
+      neutraali: 0,
+      huono: 0,
+    }
+    
+  }
+
+  lisaaYksi = (prevState, stateType) => {
+    return () => {
+      this.setState((prevState) => ({
+        [stateType] : prevState.state + 1
+    }));
+  }
+  }
+
+  lisaaHyva = () => {
+    return () => {
+      this.setState((prevState) => ({
+        hyva : prevState.hyva + 1
+    }));
+  }
+  }
+
+  lisaaNeutraali = () => {
+    return () => {
+      this.setState((prevState) => ({
+        neutraali : prevState.neutraali + 1
+    }));
+  }
+  }
+
+  lisaaHuono = () => {
+    return () => {
+      this.setState((prevState) => ({
+        huono : prevState.huono + 1
+    }));
+  }
+  }
+
+  render() {
+    
+    return (
+    <div>
+      
+     <Otsikko></Otsikko>
+     <Button handleClick={this.lisaaHyva(this.state.hyva, 'hyva')} text="hyvä"/>
+     <Button handleClick={this.lisaaNeutraali(this.state.neutraali)} text="neutraali"/>
+     <Button handleClick={this.lisaaHuono(this.state.huono)} text="huono"/>
+     <Statistics stats={this.state}></Statistics>
+  
+     
+    </div>
+    )
+  }
+}
 ReactDOM.render(
   <App />,
   document.getElementById('root')
