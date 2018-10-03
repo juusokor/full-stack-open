@@ -1,21 +1,55 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const Anecdote = ({ anecdotes, selected }) => {
+  return (
+    <div>
+      {anecdotes[selected]}
+    </div>
+  )
+}
+
+const AnecdoteVoteCount = ({ voteCount }) => {
+  return (
+    <div>
+      has {voteCount} votes
+    </div>
+  )
+}
+
+const AnecdoteWithMostVotes = ({ anecdotes, selected, pisteet }) => {
+  const topAnecdote = pisteet.reduce(function (a, b) { return a > b ? a : b })
+  return (
+    <div>
+      <Anecdote anecdotes={anecdotes} selected={pisteet[topAnecdote]} />
+      <AnecdoteVoteCount voteCount={topAnecdote} />
+    </div>
+  )
+}
+
+const Button = ({ handleClick, text }) => {
+  return (
+    <button onClick={handleClick}>{text}</button>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       selected: 0,
-      pisteet : new Array(anecdotes.length).fill(0)
+      pisteet: new Array(anecdotes.length).fill(0)
     }
   }
 
   voteAnecdote = (prevState, index) => {
     return () => {
-      this.setState((prevState) => (
+      const newPisteet = [...prevState]
+      newPisteet[index] += 1
+      this.setState(
         {
-          pisteet: prevState[index] + 1
-        }))
+          pisteet: newPisteet
+        })
     }
   }
 
@@ -30,15 +64,30 @@ class App extends React.Component {
   }
 
   render() {
+
+    const showStatsIfVotes = () => {
+      const sum = this.state.pisteet.reduce((a, b) => a + b, 0)
+      if (sum === 0) {
+        return (
+          <h2>vote to see the highest voted anecdote.</h2>
+        )
+      }
+      return (
+        <div>
+          <h2>anecdote with most votes:</h2>
+          <AnecdoteWithMostVotes anecdotes={this.props.anecdotes} selected={this.state.selected} pisteet={this.state.pisteet} />
+        </div>
+      )
+    }
+
     return (
       <div>
-        {this.props.anecdotes[this.state.selected]}
-        <p>This anecdote has {this.state.pisteet[this.state.selected]} votes</p>
-        <p>
-          <button onClick={this.voteAnecdote}>vote</button>
-          <button onClick={this.chooseRandomAnecdote}>next anecdote</button>
-        </p>
-      </div>
+        <Anecdote anecdotes={this.props.anecdotes} selected={this.state.selected} />
+        <AnecdoteVoteCount voteCount={this.state.pisteet[this.state.selected]} />
+        <Button handleClick={this.voteAnecdote(this.state.pisteet, this.state.selected)} text='vote' />
+        <Button handleClick={this.chooseRandomAnecdote} text='next anecdote' />
+        <div>{showStatsIfVotes()}</div>
+      </div >
     )
   }
 }
