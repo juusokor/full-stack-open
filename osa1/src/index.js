@@ -1,47 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import { Kurssi, Otsikko, Sisalto, Osa, Yhtensa } from './components/Kurssi'
 
 const KurssiLista = ({ kurssit }) => {
   const kurssilista = kurssit.map(kurssi => <Kurssi key={kurssi.id} kurssi={kurssi} />)
   return (
     <div>
       {kurssilista}
-    </div>
-  )
-}
-
-const Kurssi = ({ kurssi }) =>
-  <div>
-    <Otsikko kurssi={kurssi} />
-    <Sisalto kurssi={kurssi} />
-    <Yhteensa kurssi={kurssi} />
-  </div>
-
-const Otsikko = (props) =>
-  <div>
-    <h1>{props.kurssi.nimi}</h1>
-  </div>
-
-const Sisalto = ({ kurssi }) => {
-  const osaLista = kurssi.osat.map(osa => <Osa key={osa.id} osa={osa} />)
-  return (
-    <div>
-      {osaLista}
-    </div>
-  )
-}
-
-const Osa = ({ osa }) =>
-  <div>
-    <p>{osa.nimi} {osa.tehtavia}</p>
-  </div>
-
-const Yhteensa = ({ kurssi }) => {
-  const summa = kurssi.osat.reduce((sum, osa) => sum + osa.tehtavia, 0)
-  return (
-    <div>
-      <p>yhteensa {summa} tehtävää</p>
     </div>
   )
 }
