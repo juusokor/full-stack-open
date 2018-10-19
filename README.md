@@ -11,4 +11,6 @@ Submissions for Full Stack Open https://fullstackopen.github.io/
 * [osa 1.12 - 1.14 Anekdootit](https://github.com/juusokor/full-stack-open/blob/d4febb3e1867921e78419d7d1013e438b026208d/osa1/src/index.js)
 
 ## osa2
-* [osa 2.1 - 2.5](https://github.com/juusokor/full-stack-open/blob/67db15ca2ae513a98eacc5762f994b28f74a44e0/osa1/src/index.js)
+* [osa 2.1 - 2.5](https://github.com/juusokor/full-stack-open/blob/67db15ca2ae513a98eacc5762f994b28f74a44e0/osa1/src/)
+* [osa 2.6 - 2.10]
+(https://github.com/juusokor/full-stack-open/tree/2fb812fdb33da29db968f913406832a58fae1d99/osa1/src)
