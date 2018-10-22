@@ -1,6 +1,5 @@
 import React from "react";
-import Numbers from "./Numbers";
-import NewNumber from "./NewNumber";
+import Countries from "./Countries";
 import Filter from "./Filter";
 import axios from "axios";
 
@@ -8,48 +7,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      persons: [],
-      newName: "",
-      newNumber: "",
+      countries: [],
       filter: ""
     };
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3001/persons").then(response => {
-      this.setState({ persons: response.data });
+    axios.get("https://restcountries.eu/rest/v2/all").then(response => {
+      this.setState({ countries: response.data });
     });
   }
 
-  addName = event => {
-    event.preventDefault();
-
-    const hasName = this.state.persons.find(e => e.name === this.state.newName);
-
-    if (typeof hasName === "undefined") {
-      const nameObject = {
-        name: this.state.newName,
-        number: this.state.newNumber
-      };
-      const persons = this.state.persons.concat(nameObject);
-
-      this.setState({
-        persons,
-        newName: "",
-        newNumber: ""
-      });
-    } else {
-      alert("Nimi jo listassa");
-      this.setState({});
-    }
-  };
-
-  handleNameChange = event => {
-    this.setState({ newName: event.target.value });
-  };
-  handleNumberChange = event => {
-    this.setState({ newNumber: event.target.value });
-  };
   handleFilterChange = event => {
     this.setState({ filter: event.target.value });
   };
@@ -57,19 +25,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Puhelinluettelo</h1>
         <Filter
           filter={this.state.filter}
           handleFilterChange={this.handleFilterChange}
         />
-        <NewNumber
-          handleSubmit={this.addName}
-          newNameState={this.state.newName}
-          newNumberState={this.state.newNumber}
-          handleNameChange={this.handleNameChange}
-          handleNumberChange={this.handleNumberChange}
+        <Countries
+          countries={this.state.countries}
+          filter={this.state.filter}
         />
-        <Numbers persons={this.state.persons} filter={this.state.filter} />
       </div>
     );
   }

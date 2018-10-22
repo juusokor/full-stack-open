@@ -5,8 +5,7 @@ const Filter = ({ filter, handleFilterChange }) => {
     <div>
       <form>
         <div>
-          rajaa näytettäviä:{" "}
-          <input value={filter} onChange={handleFilterChange} />
+          find countries: <input value={filter} onChange={handleFilterChange} />
         </div>
       </form>
     </div>
