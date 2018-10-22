@@ -3,6 +3,7 @@ import Numbers from "./Numbers";
 import NewNumber from "./NewNumber";
 import Filter from "./Filter";
 import axios from "axios";
+import personService from "../services/persons";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3001/persons").then(response => {
-      this.setState({ persons: response.data });
+    personService.getAll().then(persons => {
+      this.setState({ persons });
     });
   }
 
@@ -32,6 +33,8 @@ class App extends React.Component {
         number: this.state.newNumber
       };
       const persons = this.state.persons.concat(nameObject);
+
+      personService.create(nameObject).then();
 
       this.setState({
         persons,
