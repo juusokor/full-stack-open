@@ -8,7 +8,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       countries: [],
-      filter: ""
+      filter: "",
+      selectedCountry: ""
     };
   }
 
@@ -20,6 +21,11 @@ class App extends React.Component {
 
   handleFilterChange = event => {
     this.setState({ filter: event.target.value });
+    this.setState({ selectedCountry: "" });
+  };
+
+  handleCountryClick = event => {
+    this.setState({ selectedCountry: event.target.dataset.country });
   };
 
   render() {
@@ -32,6 +38,8 @@ class App extends React.Component {
         <Countries
           countries={this.state.countries}
           filter={this.state.filter}
+          selectedCountry={this.state.selectedCountry}
+          handleCountryClick={this.handleCountryClick}
         />
       </div>
     );

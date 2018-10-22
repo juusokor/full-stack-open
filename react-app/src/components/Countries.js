@@ -1,15 +1,29 @@
 import React from "react";
 
-const Countries = ({ countries, filter }) => {
+const Countries = ({
+  countries,
+  filter,
+  selectedCountry,
+  handleCountryClick
+}) => {
   const filteredList = countries.filter(e =>
     e.name.toLowerCase().includes(filter)
   );
   const countryList = filteredList.map(country => (
-    <Country key={country.name} country={country.name} />
+    <Country
+      key={country.name}
+      country={country.name}
+      handleCountryClick={handleCountryClick}
+    />
   ));
 
   if (filter.length === 0) {
     return <div />;
+  }
+
+  if (selectedCountry !== "") {
+    const theCountry = countries.find(e => e.name === selectedCountry);
+    return <CountryDetails country={theCountry} />;
   }
 
   if (filteredList.length >= 10) {
@@ -31,10 +45,12 @@ const Countries = ({ countries, filter }) => {
   }
 };
 
-const Country = ({ country }) => {
+const Country = ({ country, handleCountryClick }) => {
   return (
     <tr>
-      <td>{country}</td>
+      <td key={country} data-country={country} onClick={handleCountryClick}>
+        {country}
+      </td>
     </tr>
   );
 };
