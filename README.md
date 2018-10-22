@@ -15,4 +15,5 @@ Submissions for Full Stack Open https://fullstackopen.github.io/
 ## osa2
 
 - [osa 2.1 - 2.5 Half-Stack](https://github.com/juusokor/full-stack-open/blob/67db15ca2ae513a98eacc5762f994b28f74a44e0/osa1/src/)
+- [osa 2.12 - 2.13 Maiden tiedot](https://github.com/juusokor/full-stack-open/tree/1440af8f8901542f428858d08c1cf836e95e81d1/react-app/src/)
 - [osa 2.6 - 2.11 Puhelinluettelo](https://github.com/juusokor/full-stack-open/tree/2b069df185d838006b09b19c27bd86afc5656a12/react-app/src/)
