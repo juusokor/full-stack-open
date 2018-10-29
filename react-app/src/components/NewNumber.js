@@ -9,7 +9,7 @@ const NewNumber = ({
 }) => {
   return (
     <div>
-      <h2>Lisää uusi</h2>
+      <h2>Lisää uusi / muuta olemassaolevaa numeroa</h2>
       <form onSubmit={handleSubmit}>
         <div>
           nimi:

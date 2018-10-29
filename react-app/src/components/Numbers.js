@@ -1,11 +1,11 @@
 import React from "react";
 
-const Numbers = ({ persons, filter }) => {
+const Numbers = ({ persons, filter, handleRemoveClick }) => {
   const filteredList = persons.filter(e =>
     e.name.toLowerCase().includes(filter)
   );
   const numberList = filteredList.map(person => (
-    <Person key={person.name} person={person} number={person.number} />
+    <Person key={person.id} person={person} handleRemoveClick={handleRemoveClick} />
   ));
   // const numberList = persons.map(person => <Person key={person.name} person={person} number={person.number} />)
 
@@ -19,11 +19,12 @@ const Numbers = ({ persons, filter }) => {
   );
 };
 
-const Person = ({ person, number }) => {
+const Person = ({ person, handleRemoveClick }) => {
   return (
-    <tr>
+    <tr key={person.id}>
       <td>{person.name}</td>
-      <td> {number}</td>
+      <td>{person.number}</td>
+      <td><button type="submit" data-id={person.id} onClick={handleRemoveClick}>poista</button></td>
     </tr>
   );
 };
