@@ -5,9 +5,12 @@ const Numbers = ({ persons, filter, handleRemoveClick }) => {
     e.name.toLowerCase().includes(filter)
   );
   const numberList = filteredList.map(person => (
-    <Person key={person.id} person={person} handleRemoveClick={handleRemoveClick} />
+    <Person
+      key={person.id}
+      person={person}
+      handleRemoveClick={handleRemoveClick}
+    />
   ));
-  // const numberList = persons.map(person => <Person key={person.name} person={person} number={person.number} />)
 
   return (
     <div>
@@ -24,7 +27,11 @@ const Person = ({ person, handleRemoveClick }) => {
     <tr key={person.id}>
       <td>{person.name}</td>
       <td>{person.number}</td>
-      <td><button type="submit" data-id={person.id} onClick={handleRemoveClick}>poista</button></td>
+      <td>
+        <button type="submit" data-id={person.id} onClick={handleRemoveClick}>
+          poista
+        </button>
+      </td>
     </tr>
   );
 };

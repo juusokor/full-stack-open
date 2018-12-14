@@ -30,14 +30,13 @@ class App extends React.Component {
     if (typeof hasName === "undefined") {
       const nameObject = {
         name: this.state.newName,
-        number: this.state.newNumber,
-        id: this.state.persons.length + 1
+        number: this.state.newNumber
       };
-      const persons = this.state.persons.concat(nameObject);
 
-      personService.create(nameObject).then(() => {
+      personService.create(nameObject).then(response => {
+        const persons = this.state.persons.concat(response);
         this.setState({
-          persons,
+          persons: persons,
           newName: "",
           newNumber: "",
           message: `Lisätty nimi ${nameObject.name} numerolla ${
@@ -93,7 +92,7 @@ class App extends React.Component {
     const removeId = event.target.dataset.id;
     const personR = this.state.persons.find(e => e.id === removeId);
 
-    if (window.confirm(`Poistetaanko id ${personR.name}?`)) {
+    if (window.confirm(`Poistetaanko ${personR.name}?`)) {
       personService.remove(removeId).then(() => {
         this.setState({
           persons: this.state.persons.filter(e => e.id !== removeId),
