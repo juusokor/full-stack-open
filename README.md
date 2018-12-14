@@ -18,3 +18,6 @@ Submissions for Full Stack Open https://fullstackopen.github.io/
 - [osa 2.12 - 2.13 Maiden tiedot](https://github.com/juusokor/full-stack-open/tree/1440af8f8901542f428858d08c1cf836e95e81d1/react-app/src/)
 - [osa 2.6 - 2.19 Puhelinluettelo ja tyylit](https://github.com/juusokor/full-stack-open/tree/78ec7e392b979e525b183564d4986454ca590a2a/react-app/)
 
+## osa3
+
+- [osa 3.1 - 3.22](https://github.com/juusokor/full-stack-open-osa3)
